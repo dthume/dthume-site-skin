@@ -1,0 +1,6 @@
+dthume Site Skin
+==========================
+David Thomas Hume
+:Author Initials: DTH
+
+Skin for project sites under the org.dthume group.
