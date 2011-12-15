@@ -25,6 +25,16 @@
     Skin for project sites in the org.dthume group
   </description>
 
+  <distributionManagement>
+    <site>
+      <id>dthu.me.web</id>
+      <name>org.dthume Maven Website</name>
+      <url>
+        file:///opt/maven/sites/org/dthume/${project.artifactId}/${project.version}/
+      </url>
+    </site>
+  </distributionManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.dthume</groupId>
@@ -43,7 +53,7 @@
       <plugin>
         <groupId>org.fusesource.mvnplugins</groupId>
         <artifactId>maven-uberize-plugin</artifactId>
-        <version>1.20</version>       
+        <version>1.20</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -56,11 +66,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.2.1</version>
         <configuration>
           <localCheckout>true</localCheckout>
           <pushChanges>false</pushChanges>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
