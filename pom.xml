@@ -20,7 +20,7 @@
 
   <name>org.dthume Site Skin</name>
   <inceptionYear>2011</inceptionYear>
-  <url>http://dthu.me/projects/org/dthume/${project.artifactId}/${project.version}/</url>
+  <url>https://dthume.github.com/dthume-site-skin/</url>
 
   <description>
     Skin for project sites in the org.dthume group
@@ -30,9 +30,7 @@
     <site>
       <id>dthu.me.web</id>
       <name>org.dthume Maven Website</name>
-      <url>
-        file:///opt/maven/sites/org/dthume/${project.artifactId}/${project.version}/
-      </url>
+      <url>https://github.com/dthume/${project.artifactId}/</url>
     </site>
   </distributionManagement>
 
