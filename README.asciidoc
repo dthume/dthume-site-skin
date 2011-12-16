@@ -5,5 +5,6 @@ David Thomas Hume
 
 Skin for project sites under the org.dthume group.
 
-The Maven generated project site can be found
-http://dthume.github.com/dthume-site-skin[here].
+Maven generated project sites are available for the latest
+http://dthume.github.com/dthume-site-skin/[release] and
+http://dthu.me/projects/dthume-site-skin/[snapshot] versions.
