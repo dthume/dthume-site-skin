@@ -21,6 +21,11 @@
     Skin for project sites in the org.dthume group
   </description>
   
+  <properties>
+    <unpacked.resources.directory>target/unpacked-dependencies</unpacked.resources.directory>
+    <doxia.resources.directory>org/apache/maven/doxia/siterenderer/resources</doxia.resources.directory>
+  </properties>
+  
   <scm>
     <connection>scm:git:git://github.com/dthume/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:dthume/${project.artifactId}.git</developerConnection>
@@ -37,9 +42,11 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.dthume</groupId>
-      <artifactId>doxia-site-renderer-resources</artifactId>
-      <version>1.2.0</version>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-site-renderer</artifactId>
+      <version>1.2</version>
+      <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.skins</groupId>
@@ -49,7 +56,38 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>${unpacked.resources.directory}/${doxia.resources.directory}</directory>
+      </resource>
+    </resources>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-site</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeArtifactIds>doxia-site-renderer</includeArtifactIds>
+              <includeGroupIds>org.apache.maven.doxia</includeGroupIds>
+              <excludeTransitive>true</excludeTransitive>
+              <overWrite>false</overWrite>
+              <outputDirectory>${unpacked.resources.directory}</outputDirectory>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <includes>${doxia.resources.directory}/**</includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.fusesource.mvnplugins</groupId>
         <artifactId>maven-uberize-plugin</artifactId>
@@ -59,6 +97,12 @@
             <phase>package</phase>
             <goals><goal>uberize</goal></goals>
             <configuration>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+              <artifactSet>
+                <includes>
+                  <include>org.apache.maven.skins:maven-default-skin</include>
+                </includes>
+              </artifactSet>
             </configuration>
           </execution>
         </executions>
