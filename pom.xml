@@ -42,13 +42,6 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.maven.doxia</groupId>
-      <artifactId>doxia-site-renderer</artifactId>
-      <version>1.2</version>
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <groupId>org.apache.maven.skins</groupId>
       <artifactId>maven-default-skin</artifactId>
       <version>1.0</version>
@@ -73,29 +66,34 @@
             <id>unpack-site</id>
             <phase>generate-resources</phase>
             <goals>
-              <goal>unpack-dependencies</goal>
+              <goal>unpack</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>doxia-site-renderer</includeArtifactIds>
-              <includeGroupIds>org.apache.maven.doxia</includeGroupIds>
-              <excludeTransitive>true</excludeTransitive>
-              <overWrite>false</overWrite>
-              <outputDirectory>${unpacked.resources.directory}</outputDirectory>
-              <overWriteReleases>false</overWriteReleases>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <includes>${doxia.resources.directory}/**</includes>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.maven.doxia</groupId>
+                  <artifactId>doxia-site-renderer</artifactId>
+                  <version>1.2</version>
+                  <type>jar</type>
+                  <overWrite>false</overWrite>
+                  <outputDirectory>${unpacked.resources.directory}</outputDirectory>
+                  <destFileName>optional-new-name.jar</destFileName>
+                  <includes>${doxia.resources.directory}/**</includes>
+                </artifactItem>
+              </artifactItems>
             </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.fusesource.mvnplugins</groupId>
-        <artifactId>maven-uberize-plugin</artifactId>
-        <version>1.20</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
         <executions>
           <execution>
             <phase>package</phase>
-            <goals><goal>uberize</goal></goals>
+            <goals>
+              <goal>shade</goal>
+            </goals>
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <artifactSet>
